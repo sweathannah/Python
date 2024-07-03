@@ -57,22 +57,107 @@ print(p3)
     
 
 
-class Dog:
-    number = 0
-    # __number = 0   #private attribute
-    #_protected = "i am a protected variable"
-    def __init__(self,  name):
+# class Dog:
+#     number = 0
+#     # __number = 0   #private attribute
+#     #_protected = "i am a protected variable"
+#     def __init__(self,  name):
+#         self.name = name
+#         self.Number = Dog.__number
+#         self.Number += 1
+#         self.__dognumber = Dog.number
+
+#     def get_dognumber(self):
+#         return self.__dognumber 
+
+#     def bark(self):
+#         print(f"{self.name} says woof!")
+
+
+# jack = Dog("jack")
+# # print(f"{jack.name} position is No.{get_dognumber(self)}")
+
+
+
+class Employee:
+    def __init__(self, name, age, position, salary):
         self.name = name
-        self.Number = Dog.__number
-        self.Number += 1
-        self.__dognumber = Dog.number
+        self.age = age
+        self.position = position
+        self.salary = salary
 
-    def get_dognumber(self):
-        return self.__dognumber 
+    def __str__(self):
+        return f"Name: {self.name}, Age: {self.age}, Position: {self.position}, Salary: ${self.salary:.2f}"
 
-    def bark(self):
-        print(f"{self.name} says woof!")
+    def update_position(self, new_position):
+        self.position = new_position
+
+    def update_salary(self, new_salary):
+        self.salary = new_salary
 
 
-jack = Dog("jack")
-print(f"{jack.name} position is No.{get_dognumber(self)}")
+class Company:
+    def __init__(self):
+        self.employees = []
+
+    def add_employee(self, employee):
+        self.employees.append(employee)
+        print("Employee added successfully")
+        print(f"list of employee : {self.employees}")
+
+    def remove_employee(self, name):
+        for employee in self.employees:
+            if employee.name == name:
+                self.employees.remove(employee)
+                return True
+        return False
+
+    def update_employee(self, name, position=None, salary=None):
+        for employee in self.employees:
+            if employee.name == name:
+                if position:
+                    employee.update_position(position)
+                if salary:
+                    employee.update_salary(salary)
+                return True
+        return False
+
+    def view_all_employees(self):
+        for employee in self.employees:
+            print(employee)
+
+    def find_employee(self, name):
+        for employee in self.employees:
+            if employee.name == name:
+                return employee
+        return None
+
+user = Company()
+user.add_employee("sultanat")
+
+def user_interface():
+    company = Company()
+
+    while True:
+        print("\nEmployee Management System")
+        print("1. Add a new employee")
+        print("2. Remove an employee")
+        print("3. Update an employee's details")
+        print("4. View all employees")
+        print("5. Find an employee by name")
+        print("Exit")
+
+        choice = input("Enter your choice (1-6): ")
+
+        if choice == '1':
+            name = input("Enter employee's name: ")
+            age = int(input("Enter employee's age: "))
+            position = input("Enter employee's position: ")
+            salary = float(input("Enter employee's salary: "))
+            employee = Employee(name, age, position, salary)
+            company.add_employee(employee)
+            print(f"Employee {name} added successfully.")
+
+
+        
+
