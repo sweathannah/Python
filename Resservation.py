@@ -154,9 +154,6 @@ def view_reservations(reservations_file):
     1. Reads the reservations from the CSV file.
     2. Prints the reservation details in a readable format.
 
-    Parameters:
-    reservations_file (str): The file path to the CSV file where reservation details are stored.
-
     """
      
     try:
@@ -167,6 +164,9 @@ def view_reservations(reservations_file):
     except Exception as e:
         print(f"Error viewing reservations: {e}")
 
+
+
+def modify_reservation(reservations_file):
 
     """
     Modifies an existing reservation by updating its details in the reservations CSV file.
@@ -180,87 +180,6 @@ def view_reservations(reservations_file):
     5. Notifies the user whether the modification was successful or if the reservation was not found.
     """
 
-    name_to_modify = str(input("Enter the name you input while making reservation: "))
-    table_name_to_modify = str(input("Enter the table name you've resevered: "))
-
-    with open(reservations_file, mode='r') as file:
-        reader = csv.reader(file)
-        opened_reservation_file = list(reader) #Save the reader object to a variable and change to list to allow modification since by default, it is now an iterator and can't be modified.
-
-    for reserved_table in opened_reservation_file:
-        if reserved_table[1] == name_to_modify and reserved_table[0] == table_name_to_modify: 
-
-            check_for_reservation = opened_reservation_file[opened_reservation_file.index(reserved_table)] #Identify the reservation with the index from the file content and delete.
-            print(f"Reservation for {name_to_modify} who booked {table_name_to_modify} found: \n {check_for_reservation}")
-
-
-            New_name = input("Enter the new name for your reservation (if no new name re-enter the previous name): ")
-
-            New_contact = input("Enter your new contact (if no new contact re-enter the previous contact): ")
-            if len(contact) > 11 or len(contact) < 10:
-                print(f"Invalid phone number")
-                New_contact = input("Enter your new contact (if no new contact re-enter the previous contact) again:")
-                return
-            
-            New_party_size = input("Enter the new number of guest for your event  (if no new number re-enter the previous number)")
-
-            available_tables = [table for table in tables if table['Seats'] >= New_party_size]
-            while not available_tables:
-                print("No available tables for your party size.")
-                New_party_size = input("Enter the new number of guest for your event  (if no new number re-enter the previous number) again")
-                available_tables = [table for table in tables if table['Seats'] >= New_party_size]
-
-            view_tables(available_tables)
-
-            table_names = [list(table.values())[0] for table in available_tables]  # List of table descriptions available for reservation
-
-            table_name = input("Enter the desired table name: ")
-            while table_name not in table_names:
-                print("Invalid table name. Please choose a valid table from the list.")
-                view_tables(available_tables)
-                table_name = input("Enter the desired table name: ")
-
-
-            New_date = input("Enter the new date for the event (if no new date re-enter the previous date): ")
-            try:
-                date_input = datetime.strptime(New_date, '%Y-%m-%d')
-                if date_input < datetime.now():
-                    print("The date cannot be in the past. Please enter a valid future date.")
-                    New_date = input("Enter the new date for the event (if no new date re-enter the previous date): ")
-                    return
-            except ValueError:
-                print("Invalid date. Please enter a valid date in the format YYYY-MM-DD.")
-                New_date = input("Enter the new date for the event (if no new date re-enter the previous date): ")
-                return
-
-            
-            def validate_time(time):
-                try:
-                    datetime.strptime(time, "%H:%M")
-                    return True
-                except:
-                    print("Invalid date. Please enter a valid date in the format (HH:MM).")
-                    print(time)
-                    return False
-
-            New_start_time = input("Enter your new start time (if no new start-time  re-enter the previous start-time): ")
-            validate_time(New_start_time)
-
-            new_end_time = input("Enter your new end time (if no new end-time re-enter the previous contact): ")
-            validate_time(new_end_time)
-
-            # Update the reservation with new details
-            check_for_reservation[:] = [table_name, New_name, New_contact, New_party_size, New_date, New_start_time, new_end_time]
-            # Write the updated reservations back to the CSV file
-            with open(reservations_file, mode='w', newline='') as file:
-                writer = csv.writer(file)
-                writer.writerows(reservations)
-            print(f"Reservation for {name_to_modify} at {table_name_to_modify} has been successfully modified.")
-        break
-    else:
-        print(f"Reservation for {name_to_modify} who booked {table_name_to_modify} not found")
-
-def modify_reservation(reservations_file):
     name_to_modify = input("Enter the name you used while making the reservation: ")
     table_name_to_modify = input("Enter the table name you've reserved: ")
 
