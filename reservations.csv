@@ -1,5 +1,1 @@
-table_name, name, contact, party_size, date, start_time, end_time
-Prestige Parlor,sultanat,8035301870,8,2024-8-8,3:00,6:00
-Royal Banquet,quwwaat,8034635854,5,2024-9-5,5:00,10:00
-Prestige Parlor,lisaan,80345678921,5,2024-08-15,2:00,5:00
-Friends' Reunion,Erinlola,08035700214,3,2024-7-10,10:00,12:00
+"['table_name', ' name', ' contact', ' party_size', ' date', ' start_time', ' end_time']","['Prestige Parlor', 'sultanat', '8035301870', '8', '2024-8-8', '3:00', '6:00']","['Royal Banquet', 'quwwaat', '8034635854', '5', '2024-9-5', '5:00', '10:00']","['Prestige Parlor', 'lisaan', '80345678921', '5', '2024-08-15', '2:00', '5:00']","[""Friends' Reunion"", 'Erinlola', '08035700214', '3', '2024-7-10', '10:00', '12:00']"

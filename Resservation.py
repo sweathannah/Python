@@ -51,7 +51,6 @@ def validate_time(time):
             print("Invalid time. Please enter a valid time in the format HH:MM.")
             time = input("Enter your new start time (if no new start-time re-enter the previous start-time): ")
 
-view_tables(tables)
 
 def make_reservation(tables, reservations_file):
     """
@@ -70,9 +69,9 @@ def make_reservation(tables, reservations_file):
        - If any error occurs during the saving process, an appropriate error message is displayed.
 
     """
-    name = str(input("Enter your name: "))
+    name = str(input("Enter your name: ")).lower().strip()
 
-    contact = validate_phone((input("Enter your contact number: +234 ")))
+    contact = validate_phone((input("Enter your contact number: +234 "))).strip()
     
     party_size = int(input("Enter the number of guests for the event: "))
     available_tables = [table for table in tables if table['Seats'] >= party_size]
@@ -125,7 +124,7 @@ def cancel_reservation(reservations_file):
     5. Notifies the user whether the cancellation was successful or if the reservation was not found.
 
     """
-    name_to_cancel = str(input("Enter the name you input while making reservation: "))
+    name_to_cancel = str(input("Enter the name you input while making reservation: ")).strip().lower()
     table_name_to_cancel = str(input("Enter the table name you've resevered: "))
 
     with open(reservations_file, mode='r') as file:
@@ -180,7 +179,7 @@ def modify_reservation(reservations_file):
     5. Notifies the user whether the modification was successful or if the reservation was not found.
     """
 
-    name_to_modify = input("Enter the name you used while making the reservation: ")
+    name_to_modify = input("Enter the name you used while making the reservation: ").strip().lower()
     table_name_to_modify = input("Enter the table name you've reserved: ")
 
     with open(reservations_file, mode='r') as file:
